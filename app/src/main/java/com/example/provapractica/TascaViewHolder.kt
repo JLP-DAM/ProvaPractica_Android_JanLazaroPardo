@@ -11,7 +11,7 @@ class TascaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val estatTextView: TextView = itemView.findViewById(R.id.tvEstat)
     private val categoriaTextView: TextView = itemView.findViewById(R.id.tvCategoria)
 
-    fun renderitza(item: Tasca) {
+    fun renderitza(item: Tasca, onTascaClick: (Tasca) -> Unit) {
         nomTextView.text = item.nom
         dataTextView.text = item.data
         estatTextView.text = item.estat.nom
@@ -24,5 +24,7 @@ class TascaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         } else if (item.estat.nom == "Finalitzada") {
             estatTextView.setTextColor(Color.parseColor("#4CAF50"))
         }
+
+        itemView.setOnClickListener { onTascaClick(item) }
     }
 }

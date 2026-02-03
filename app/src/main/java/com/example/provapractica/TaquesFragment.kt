@@ -16,7 +16,19 @@ class TasquesFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var chipGroup: ChipGroup
     private lateinit var toolbar: Toolbar
-    private val adapter = TasquesAdapter()
+    private val adapter = TasquesAdapter({ tasca ->
+        val bundle = Bundle().apply {
+            putInt("tasca_id", tasca.id)
+        }
+
+        val fragment = EditarTascaFragment()
+        fragment.arguments = bundle
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(null)
+            .commit()
+    })
     private var categoriaSeleccionada: Categoria? = null
 
     override fun onCreateView(
@@ -30,7 +42,7 @@ class TasquesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //toolbar = view.findViewById(R.id.toolbar)
+        toolbar = view.findViewById(R.id.toolbar)
         recyclerView = view.findViewById(R.id.recyclerView)
         chipGroup = view.findViewById(R.id.chipGroup)
 

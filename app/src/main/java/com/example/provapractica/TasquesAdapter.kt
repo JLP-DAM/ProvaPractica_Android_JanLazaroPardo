@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class TasquesAdapter : RecyclerView.Adapter<TascaViewHolder>() {
+class TasquesAdapter(
+    private val onTascaClick: (Tasca) -> Unit
+) : RecyclerView.Adapter<TascaViewHolder>() {
 
     private var tasques = listOf<Tasca>()
 
@@ -22,7 +24,6 @@ class TasquesAdapter : RecyclerView.Adapter<TascaViewHolder>() {
     override fun getItemCount(): Int = tasques.size
 
     override fun onBindViewHolder(holder: TascaViewHolder, position: Int) {
-        holder.renderitza(tasques[position])
+        holder.renderitza(tasques[position], onTascaClick)
     }
-
 }
